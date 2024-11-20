@@ -19,6 +19,7 @@ public class VistaListaTurnos extends javax.swing.JFrame {
         initComponents();
         ModeloTurnos.agregarObservador(this);
         actualizarTabla();
+        configurarTablaPersonalizada();
     }
 
     /**
@@ -35,27 +36,26 @@ public class VistaListaTurnos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tablaTurnos.setAutoCreateRowSorter(true);
         tablaTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Hora de Entrada", "Tiempo Transcurrido"
+                "Nombre", "Apellido", "Teléfono", "Correo", "Día de Ingreso", "Placa de Vehículo", "Tiempo Transcurrido"
             }
         ));
+        tablaTurnos.setPreferredSize(new java.awt.Dimension(600, 90));
         jScrollPane1.setViewportView(tablaTurnos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,17 +71,46 @@ public class VistaListaTurnos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
     public void actualizarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tablaTurnos.getModel();
         modelo.setRowCount(0); // Limpiar la tabla
-        
+
         for (Turno turno : ModeloTurnos.obtenerTurnos()) {
-            Object[] fila = {turno.getNombre(), turno.getApellido(), turno.getHoraEntrada()};
+            Object[] fila = {
+                turno.getNombre(),
+                turno.getApellido(),
+                turno.getTelefono(),
+                turno.getCorreo(),
+                turno.getHoraEntrada(),
+                turno.getPlacaVehiculo(),
+                calcularTiempoTranscurrido(turno.getHoraEntrada()) // Implementa esta lógica según tu necesidad
+            };
             modelo.addRow(fila);
         }
     }
-    
+
+    private String calcularTiempoTranscurrido(String horaEntrada) {
+        // Implementa la lógica para calcular el tiempo transcurrido
+        // Por ejemplo, usando LocalDateTime y Duration
+        // Aquí se devuelve un valor estático como ejemplo
+        return "1h 30m";
+    }
+
+    private void configurarTablaPersonalizada() {
+        // Ajustar el ancho de las columnas
+        tablaTurnos.getColumnModel().getColumn(0).setPreferredWidth(100); // Nombre
+        tablaTurnos.getColumnModel().getColumn(1).setPreferredWidth(100); // Apellido
+        tablaTurnos.getColumnModel().getColumn(2).setPreferredWidth(100); // Teléfono
+        tablaTurnos.getColumnModel().getColumn(3).setPreferredWidth(150); // Correo
+        tablaTurnos.getColumnModel().getColumn(4).setPreferredWidth(100); // Día de Ingreso
+        tablaTurnos.getColumnModel().getColumn(5).setPreferredWidth(120); // Placa Vehículo
+        tablaTurnos.getColumnModel().getColumn(6).setPreferredWidth(150); // Tiempo Transcurrido
+
+        // Habilitar el ordenamiento
+        tablaTurnos.setAutoCreateRowSorter(true);
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

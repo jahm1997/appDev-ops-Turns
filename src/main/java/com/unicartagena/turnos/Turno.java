@@ -12,15 +12,17 @@ public class Turno {
     private String nombre;
     private String apellido;
     private String diaIngreso;
-    private Number telefono;
+    private String telefono;
     private String correo;
+    private String placaVehiculo; 
     
-    public Turno(String nombre, String apellido, String horaEntrada) {
+    public Turno(String nombre, String apellido,String telefono, String correo, String diaIngreso, String placaVehiculo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
         this.diaIngreso = diaIngreso;
+        this.placaVehiculo = placaVehiculo;
     }
     
     public String getNombre() {
@@ -31,7 +33,7 @@ public class Turno {
         return apellido;
     }
     
-    public Number getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
     
@@ -42,4 +44,14 @@ public class Turno {
     public String getHoraEntrada() {
         return diaIngreso;
     }
+    
+
+    public String getPlacaVehiculo() {
+        return placaVehiculo;
+    }
+
+    public void setPlacaVehiculo(String placaVehiculo) {
+        this.placaVehiculo = placaVehiculo;
+    }
+
 }
