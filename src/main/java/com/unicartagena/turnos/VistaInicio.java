@@ -4,18 +4,27 @@
  */
 package com.unicartagena.turnos;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 /**
  *
  * @author jahm1
  */
 public class VistaInicio extends javax.swing.JFrame {
-
+private void SetImageLabel(JLabel jLabel4, String root){
+        ImageIcon image = new ImageIcon(root);
+        Icon icon = new ImageIcon( image.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_DEFAULT));
+        jLabel4.setIcon(icon);
+        this.repaint();
     /**
      * Creates new form VistaInicio
      */
     public VistaInicio() {
         initComponents();
         personalizarComponentes();
+        SetImageLabel(jLabel4, "C:/Users/Mauricio/Downloads/turns/src/main/java/Imagenes/twincarlogo.jpg");
     }
 
     /**
