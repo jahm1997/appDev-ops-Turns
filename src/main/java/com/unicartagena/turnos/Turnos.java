@@ -4,6 +4,8 @@
 
 package com.unicartagena.turnos;
 
+import com.unicartagena.turnos.view.VistaInicio;
+
 /**
  *
  * @author jahm1

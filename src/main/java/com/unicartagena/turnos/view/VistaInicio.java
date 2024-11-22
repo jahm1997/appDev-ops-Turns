@@ -2,30 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.unicartagena.turnos;
+package com.unicartagena.turnos.view;
 
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+
 /**
  *
  * @author jahm1
  */
 public class VistaInicio extends javax.swing.JFrame {
-        //En esta parte se encuentra la imagen de Twincar//
-private void SetImageLabel(JLabel jLabel4, String root){
+    //En esta parte se encuentra la imagen de Twincar//
+
+    private void SetImageLabel(JLabel jLabel4, String root) {
         ImageIcon image = new ImageIcon(root);
-        Icon icon = new ImageIcon( image.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_DEFAULT));
+        Icon icon = new ImageIcon(image.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_DEFAULT));
         jLabel4.setIcon(icon);
         this.repaint();
+    }
+
     /**
      * Creates new form VistaInicio
      */
     public VistaInicio() {
         initComponents();
         personalizarComponentes();
-        SetImageLabel(jLabel4, "C:/Users/Mauricio/Downloads/turns/src/main/java/Imagenes/twincarlogo.jpg");
+        //SetImageLabel(jLabel4, "C:/Users/Mauricio/Downloads/turns/src/main/java/Imagenes/twincarlogo.jpg");
     }
 
     /**
@@ -46,7 +51,7 @@ private void SetImageLabel(JLabel jLabel4, String root){
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.NW_RESIZE_CURSOR));
 
-        IniciarPrograma.setText("Iniciar Programada");
+        IniciarPrograma.setText("Iniciar Programa");
         IniciarPrograma.setActionCommand("Iniciar Programa");
         IniciarPrograma.setAlignmentX(0.5F);
         IniciarPrograma.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -142,11 +147,12 @@ private void SetImageLabel(JLabel jLabel4, String root){
         // TODO add your handling code here:
     }//GEN-LAST:event_IniciarProgramaFocusGained
 
+// Método auxiliar para personalizar componentes
     private void personalizarComponentes() {
         IniciarPrograma.setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 14));
         IniciarPrograma.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 16));
-        this.setTitle("Sistema de Turnos");
+        this.setTitle("Sistema de Gestión de Turnos");
         this.setLocationRelativeTo(null); // Centrar ventana
     }
 

@@ -2,15 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.unicartagena.turnos;
+package com.unicartagena.turnos.view;
 
+import com.unicartagena.turnos.model.ModeloTurnos;
+import com.unicartagena.turnos.model.entity.Turno;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jahm1
  */
-public class VistaListaTurnos extends javax.swing.JFrame {
+public final class VistaListaTurnos extends javax.swing.JFrame {
 
     /**
      * Creates new form VistaListaTurnos
@@ -18,8 +25,8 @@ public class VistaListaTurnos extends javax.swing.JFrame {
     public VistaListaTurnos() {
         initComponents();
         ModeloTurnos.agregarObservador(this);
+        configurarEstadoColumna();
         actualizarTabla();
-        configurarTablaPersonalizada();
     }
 
     /**
@@ -39,13 +46,13 @@ public class VistaListaTurnos extends javax.swing.JFrame {
         tablaTurnos.setAutoCreateRowSorter(true);
         tablaTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Teléfono", "Correo", "Día de Ingreso", "Placa de Vehículo", "Tiempo Transcurrido"
+                "Nombre", "Apellido", "Teléfono", "Correo", "Día de Ingreso", "Placa de Vehículo", "Tiempo Transcurrido", "Cambiar Estado", "Turno", "Fecha Cierre"
             }
         ));
         tablaTurnos.setPreferredSize(new java.awt.Dimension(600, 90));
@@ -71,44 +78,50 @@ public class VistaListaTurnos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void actualizarTabla() {
-        DefaultTableModel modelo = (DefaultTableModel) tablaTurnos.getModel();
-        modelo.setRowCount(0); // Limpiar la tabla
+   public void actualizarTabla() {
+    DefaultTableModel modelo = (DefaultTableModel) tablaTurnos.getModel();
+    modelo.setRowCount(0); // Limpiar la tabla antes de actualizar
 
-        for (Turno turno : ModeloTurnos.obtenerTurnos()) {
-            Object[] fila = {
-                turno.getNombre(),
-                turno.getApellido(),
-                turno.getTelefono(),
-                turno.getCorreo(),
-                turno.getHoraEntrada(),
-                turno.getPlacaVehiculo(),
-                calcularTiempoTranscurrido(turno.getHoraEntrada()) // Implementa esta lógica según tu necesidad
-            };
-            modelo.addRow(fila);
+    for (Turno turno : ModeloTurnos.obtenerTurnos()) {
+        modelo.addRow(new Object[] {
+            turno.getNombre(),
+            turno.getApellido(),
+            turno.getTelefono(),
+            turno.getCorreo(),
+            turno.getDiaIngreso(),
+            turno.getPlacaVehiculo(),
+            calcularTiempoTranscurrido(turno.getDiaIngreso()),
+            turno.getEstado(),
+            turno.getNumeroTurno(),
+            turno.getFechaCierre() != null ? turno.getFechaCierre() : "Sin Cerrar"
+        });
+    }
+}
+
+
+    private String calcularTiempoTranscurrido(String diaIngreso) {
+        try {
+            LocalDateTime ingreso = LocalDateTime.parse(diaIngreso, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            Duration duracion = Duration.between(ingreso, LocalDateTime.now());
+            long horas = duracion.toHours();
+            long minutos = duracion.toMinutes() % 60;
+            return horas + "h " + minutos + "m";
+        } catch (Exception e) {
+            return "Formato inválido";
         }
     }
 
-    private String calcularTiempoTranscurrido(String horaEntrada) {
-        // Implementa la lógica para calcular el tiempo transcurrido
-        // Por ejemplo, usando LocalDateTime y Duration
-        // Aquí se devuelve un valor estático como ejemplo
-        return "1h 30m";
-    }
+    private void configurarEstadoColumna() {
+        tablaTurnos.getColumnModel().getColumn(7).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
+            String estado = (String) value;
+            if ("En espera".equals(estado)) {
+                return new JButton(estado); // Renderiza un botón
+            } else {
+                return new JLabel(estado); // Renderiza un JLabel
+            }
+        });
 
-    private void configurarTablaPersonalizada() {
-        // Ajustar el ancho de las columnas
-        tablaTurnos.getColumnModel().getColumn(0).setPreferredWidth(100); // Nombre
-        tablaTurnos.getColumnModel().getColumn(1).setPreferredWidth(100); // Apellido
-        tablaTurnos.getColumnModel().getColumn(2).setPreferredWidth(100); // Teléfono
-        tablaTurnos.getColumnModel().getColumn(3).setPreferredWidth(150); // Correo
-        tablaTurnos.getColumnModel().getColumn(4).setPreferredWidth(100); // Día de Ingreso
-        tablaTurnos.getColumnModel().getColumn(5).setPreferredWidth(120); // Placa Vehículo
-        tablaTurnos.getColumnModel().getColumn(6).setPreferredWidth(150); // Tiempo Transcurrido
-
-        // Habilitar el ordenamiento
-        tablaTurnos.setAutoCreateRowSorter(true);
-
+        tablaTurnos.getColumnModel().getColumn(7).setCellEditor(new EstadoCellEditor());
     }
 
     public static void main(String args[]) {
@@ -136,15 +149,42 @@ public class VistaListaTurnos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaListaTurnos().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaListaTurnos().setVisible(true);
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaTurnos;
     // End of variables declaration//GEN-END:variables
+
+   private class EstadoCellEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor {
+
+    private JButton button;
+
+    @Override
+    public Object getCellEditorValue() {
+        return button.getText();
+    }
+
+    @Override
+    public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
+        String estado = (String) value;
+        if ("En espera".equals(estado)) {
+            button = new JButton(estado);
+            button.addActionListener(e -> {
+                int numeroTurno = (int) table.getValueAt(row, 8); // Obtener el número de turno desde la columna
+                ModeloTurnos.cambiarEstadoTurno(numeroTurno, "Atendido");
+                fireEditingStopped(); // Detener la edición después del cambio
+            });
+            return button;
+        } else {
+            return new JLabel(estado);
+        }
+    }
+}
+
+
 }
