@@ -13,6 +13,7 @@ import javax.swing.JLabel;
  * @author jahm1
  */
 public class VistaInicio extends javax.swing.JFrame {
+        //En esta parte se encuentra la imagen de Twincar//
 private void SetImageLabel(JLabel jLabel4, String root){
         ImageIcon image = new ImageIcon(root);
         Icon icon = new ImageIcon( image.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_DEFAULT));
