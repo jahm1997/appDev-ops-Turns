@@ -52,8 +52,9 @@ public class VistaHistorialTurnos extends javax.swing.JFrame {
         tablaHistorial = new JTable();
         tablaHistorial.setModel(new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"N° Turno", "Nombre", "Apellido", "Teléfono", "Correo", "Día de Ingreso", "Placa Vehículo", "Estado"}
+                new String[]{"N° Turno", "Nombre", "Apellido", "Teléfono", "Correo", "Día de Ingreso", "Día finalizado", "Placa Vehículo", "Estado"}
         ));
+       
         tablaHistorial.setAutoCreateRowSorter(true); // Habilitar ordenamiento
 
         // Configurar scroll pane
@@ -72,13 +73,15 @@ public class VistaHistorialTurnos extends javax.swing.JFrame {
         for (Turno turno : ModeloTurnos.obtenerTurnos()) {
             modelo.addRow(new Object[]{
                 turno.getNumeroTurno(),
+                
                 turno.getNombre(),
                 turno.getApellido(),
                 turno.getTelefono(),
                 turno.getCorreo(),
                 turno.getDiaIngreso(),
+                turno.getFechaCierre(),
                 turno.getPlacaVehiculo(),
-                turno.getEstado()
+                turno.getEstado(), 
             });
         }
     }
