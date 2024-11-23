@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.unicartagena.turnos.view;
 
 import java.awt.Image;
@@ -12,25 +8,17 @@ import javax.swing.JButton;
 
 /**
  *
- * @author jahm1
+ * @Dev-Ops
  */
 public class VistaInicio extends javax.swing.JFrame {
-    //En esta parte se encuentra la imagen de Twincar//
-
-    private void SetImageLabel(JLabel jLabel4, String root) {
-        ImageIcon image = new ImageIcon(root);
-        Icon icon = new ImageIcon(image.getImage().getScaledInstance(jLabel4.getWidth(), jLabel4.getHeight(), Image.SCALE_DEFAULT));
-        jLabel4.setIcon(icon);
-        this.repaint();
-    }
-
+    
     /**
      * Creates new form VistaInicio
      */
     public VistaInicio() {
         initComponents();
         personalizarComponentes();
-        //SetImageLabel(jLabel4, "C:/Users/Mauricio/Downloads/turns/src/main/java/Imagenes/twincarlogo.jpg");
+        
     }
 
     /**
@@ -45,14 +33,19 @@ public class VistaInicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         IniciarPrograma = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.NW_RESIZE_CURSOR));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        IniciarPrograma.setBackground(new java.awt.Color(255, 255, 255));
+        IniciarPrograma.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        IniciarPrograma.setForeground(new java.awt.Color(0, 0, 0));
         IniciarPrograma.setText("Iniciar Programa");
-        IniciarPrograma.setActionCommand("Iniciar Programa");
         IniciarPrograma.setAlignmentX(0.5F);
         IniciarPrograma.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         IniciarPrograma.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -68,38 +61,30 @@ public class VistaInicio extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Bienvenido al sistema de turnos");
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("TwinCar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(IniciarPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 47, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(45, 45, 45)
+                .addComponent(IniciarPrograma, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addGap(53, 53, 53))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(IniciarPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -119,8 +104,8 @@ public class VistaInicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(167, 167, 167)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -139,7 +124,7 @@ public class VistaInicio extends javax.swing.JFrame {
     private void IniciarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarProgramaActionPerformed
         new VistaFormularioTurnos().setVisible(true);
         new VistaListaTurnos().setVisible(true);
-        //Muchachos aquí cerraremos la vista actual.
+        //aquí cerraremos la vista actual.
         this.dispose();
     }//GEN-LAST:event_IniciarProgramaActionPerformed
 
@@ -160,7 +145,6 @@ public class VistaInicio extends javax.swing.JFrame {
     private javax.swing.JButton IniciarPrograma;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

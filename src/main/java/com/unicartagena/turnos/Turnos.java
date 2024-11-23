@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.unicartagena.turnos;
 
 import com.unicartagena.turnos.view.VistaInicio;
 
 /**
  *
- * @author Edom1020
+ * @author Dev-Ops
  */
 public class Turnos {
     //Aquí inicializaremos la aplicación//

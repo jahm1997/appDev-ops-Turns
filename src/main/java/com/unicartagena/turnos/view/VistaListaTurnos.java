@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.unicartagena.turnos.view;
 
 import com.unicartagena.turnos.model.ModeloTurnos;
 import com.unicartagena.turnos.model.entity.Turno;
+import java.awt.Color;
+import java.awt.Font;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author jahm1
+ * @Dev-Ops
  */
 public final class VistaListaTurnos extends javax.swing.JFrame {
 
@@ -27,6 +25,17 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
         ModeloTurnos.agregarObservador(this);
         configurarEstadoColumna();
         actualizarTabla();
+        
+        this.setTitle("Lista de clientes");
+        this.setLocationRelativeTo(null); // Centrar ventana
+        setLocation(getLocation().x + 200, getLocation().y); //desplazar a la derecha un poco
+        
+        //Agregar color a la cabeza de la tabla
+        tablaTurnos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tablaTurnos.getTableHeader().setOpaque(false);
+        tablaTurnos.getTableHeader().setBackground(new Color(32, 136, 203));
+        tablaTurnos.getTableHeader().setForeground(new Color(255, 255, 255));
+        
     }
 
     /**
@@ -38,12 +47,19 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaTurnos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         tablaTurnos.setAutoCreateRowSorter(true);
+        tablaTurnos.setBackground(new java.awt.Color(255, 255, 255));
+        tablaTurnos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tablaTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
@@ -57,19 +73,45 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
         ));
         tablaTurnos.setPreferredSize(new java.awt.Dimension(600, 90));
         jScrollPane1.setViewportView(tablaTurnos);
+        if (tablaTurnos.getColumnModel().getColumnCount() > 0) {
+            tablaTurnos.getColumnModel().getColumn(0).setHeaderValue("Nombre");
+            tablaTurnos.getColumnModel().getColumn(1).setHeaderValue("Apellido");
+            tablaTurnos.getColumnModel().getColumn(2).setHeaderValue("Teléfono");
+            tablaTurnos.getColumnModel().getColumn(3).setHeaderValue("Correo");
+            tablaTurnos.getColumnModel().getColumn(4).setHeaderValue("Día de Ingreso");
+            tablaTurnos.getColumnModel().getColumn(5).setHeaderValue("Placa de Vehículo");
+            tablaTurnos.getColumnModel().getColumn(6).setHeaderValue("Tiempo Transcurrido");
+            tablaTurnos.getColumnModel().getColumn(7).setHeaderValue("Cambiar Estado");
+            tablaTurnos.getColumnModel().getColumn(8).setHeaderValue("Turno");
+            tablaTurnos.getColumnModel().getColumn(9).setHeaderValue("Fecha Cierre");
+        }
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                .addGap(44, 44, 44))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                .addGap(91, 91, 91))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -125,37 +167,17 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaListaTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaListaTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaListaTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaListaTurnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(() -> {
             new VistaListaTurnos().setVisible(true);
+           
         });
+       
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaTurnos;
     // End of variables declaration//GEN-END:variables
