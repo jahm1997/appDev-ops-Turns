@@ -10,12 +10,15 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.Timer;
 
 /**
  *
- * @Dev-Ops
+ * @author Dev-Ops
  */
 public final class VistaListaTurnos extends javax.swing.JFrame {
+
+    private Timer timer;
 
     /**
      * Creates new form VistaListaTurnos
@@ -25,17 +28,19 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
         ModeloTurnos.agregarObservador(this);
         configurarEstadoColumna();
         actualizarTabla();
-        
+
         this.setTitle("Lista de clientes");
         this.setLocationRelativeTo(null); // Centrar ventana
         setLocation(getLocation().x + 200, getLocation().y); //desplazar a la derecha un poco
-        
+
         //Agregar color a la cabeza de la tabla
         tablaTurnos.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tablaTurnos.getTableHeader().setOpaque(false);
         tablaTurnos.getTableHeader().setBackground(new Color(32, 136, 203));
         tablaTurnos.getTableHeader().setForeground(new Color(255, 255, 255));
-        
+
+        // Inicializar el timer
+        iniciarTimer();
     }
 
     /**
@@ -120,26 +125,34 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   public void actualizarTabla() {
-    DefaultTableModel modelo = (DefaultTableModel) tablaTurnos.getModel();
-    modelo.setRowCount(0); // Limpiar la tabla antes de actualizar
+    public void actualizarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaTurnos.getModel();
+        modelo.setRowCount(0); // Limpiar la tabla antes de actualizar
 
-    for (Turno turno : ModeloTurnos.obtenerTurnos()) {
-        modelo.addRow(new Object[] {
-            turno.getNombre(),
-            turno.getApellido(),
-            turno.getTelefono(),
-            turno.getCorreo(),
-            turno.getDiaIngreso(),
-            turno.getPlacaVehiculo(),
-            calcularTiempoTranscurrido(turno.getDiaIngreso()),
-            turno.getEstado(),
-            turno.getNumeroTurno(),
-            turno.getFechaCierre() != null ? turno.getFechaCierre() : "Sin Cerrar"
-        });
+        for (Turno turno : ModeloTurnos.obtenerTurnos()) {
+            String tiempoTranscurrido;
+            if (turno.getFechaCierre() == null) {
+                // Calcular tiempo transcurrido solo si el ticket no está cerrado
+                tiempoTranscurrido = calcularTiempoTranscurrido(turno.getDiaIngreso());
+            } else {
+                // Si el ticket está cerrado, mostrar tiempo transcurrido fijo
+                tiempoTranscurrido = "0h 0m";
+            }
+
+            modelo.addRow(new Object[]{
+                turno.getNombre(),
+                turno.getApellido(),
+                turno.getTelefono(),
+                turno.getCorreo(),
+                turno.getDiaIngreso(),
+                turno.getPlacaVehiculo(),
+                tiempoTranscurrido,
+                turno.getEstado(),
+                turno.getNumeroTurno(),
+                turno.getFechaCierre() != null ? turno.getFechaCierre() : "Sin Cerrar"
+            });
+        }
     }
-}
-
 
     private String calcularTiempoTranscurrido(String diaIngreso) {
         try {
@@ -157,22 +170,33 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
         tablaTurnos.getColumnModel().getColumn(7).setCellRenderer((table, value, isSelected, hasFocus, row, column) -> {
             String estado = (String) value;
             if ("En espera".equals(estado)) {
-                return new JButton(estado); // Renderiza un botón
+                return new JButton(estado);
             } else {
-                return new JLabel(estado); // Renderiza un JLabel
+                return new JLabel(estado);
             }
         });
-
         tablaTurnos.getColumnModel().getColumn(7).setCellEditor(new EstadoCellEditor());
     }
 
+    private void iniciarTimer() {
+        // Crear un Timer que actualice la tabla cada segundo
+        timer = new Timer(1000, e -> actualizarTabla());
+        timer.start(); // Iniciar el Timer
+    }
+
+    @Override
+    public void dispose() {
+        // Detener el timer cuando la ventana se cierre
+        if (timer != null && timer.isRunning()) {
+            timer.stop();
+        }
+        super.dispose();
+    }
+
     public static void main(String args[]) {
-       
         java.awt.EventQueue.invokeLater(() -> {
             new VistaListaTurnos().setVisible(true);
-           
         });
-       
     }
 
 
@@ -182,31 +206,30 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
     private javax.swing.JTable tablaTurnos;
     // End of variables declaration//GEN-END:variables
 
-   private class EstadoCellEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor {
+    private class EstadoCellEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor {
 
-    private JButton button;
+        private JButton button;
 
-    @Override
-    public Object getCellEditorValue() {
-        return button.getText();
-    }
+        @Override
+        public Object getCellEditorValue() {
+            return button.getText();
+        }
 
-    @Override
-    public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
-        String estado = (String) value;
-        if ("En espera".equals(estado)) {
-            button = new JButton(estado);
-            button.addActionListener(e -> {
-                int numeroTurno = (int) table.getValueAt(row, 8); // Obtener el número de turno desde la columna
-                ModeloTurnos.cambiarEstadoTurno(numeroTurno, "Atendido");
-                fireEditingStopped(); // Detener la edición después del cambio
-            });
-            return button;
-        } else {
-            return new JLabel(estado);
+        @Override
+        public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
+            String estado = (String) value;
+            if ("En espera".equals(estado)) {
+                button = new JButton(estado);
+                button.addActionListener(e -> {
+                    int numeroTurno = (int) table.getValueAt(row, 8);
+                    ModeloTurnos.cambiarEstadoTurno(numeroTurno, "Atendido");
+                    fireEditingStopped();
+                });
+                return button;
+            } else {
+                return new JLabel(estado);
+            }
         }
     }
-}
-
 
 }

@@ -11,6 +11,7 @@ public class Turno {
     private String placaVehiculo;
     private String estado;
     private String fechaCierre;
+    private String tiempoTranscurrido;
 
     public Turno(int numeroTurno, String nombre, String apellido, String telefono, String correo, String diaIngreso, String placaVehiculo) {
         this.numeroTurno = numeroTurno;
@@ -21,6 +22,7 @@ public class Turno {
         this.diaIngreso = diaIngreso;
         this.placaVehiculo = placaVehiculo;
         this.estado = "En espera";
+        this.fechaCierre = "Sin Cerrar";
     }
 
     // Getters y Setters
@@ -67,4 +69,12 @@ public class Turno {
     public void setFechaCierre(String fechaCierre) {
         this.fechaCierre = fechaCierre;
     }
+    
+    public String getTiempoTranscurrido() {
+    return tiempoTranscurrido;
+}
+
+public void setTiempoTranscurrido(String tiempoTranscurrido) {
+    this.tiempoTranscurrido = tiempoTranscurrido;
+}
 }

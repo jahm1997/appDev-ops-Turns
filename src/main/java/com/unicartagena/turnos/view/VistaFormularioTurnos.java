@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @Dev-Ops
+ * @author Dev-Ops
  */
 public class VistaFormularioTurnos extends javax.swing.JFrame {
 
@@ -361,7 +361,7 @@ public class VistaFormularioTurnos extends javax.swing.JFrame {
         txtApellido.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido"));
         txtTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Teléfono"));
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo Electrónico"));
-        txtDiaIngreso.setBorder(javax.swing.BorderFactory.createTitledBorder("Día de Ingreso (ej. 2024-11-22)"));
+        txtDiaIngreso.setBorder(javax.swing.BorderFactory.createTitledBorder("Día de Ingreso (ej. 2024-11-22 00:00)"));
         txtPlacaVehiculo.setBorder(javax.swing.BorderFactory.createTitledBorder("Placa Vehicular (AAA-123)"));
     }
 
@@ -385,7 +385,6 @@ public class VistaFormularioTurnos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Placa inválida. Formato: ABC-123 o abc-h25.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         return true;
     }
 

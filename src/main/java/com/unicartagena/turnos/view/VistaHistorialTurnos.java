@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author jahm1
+ * @author jahm1997
  */
 public class VistaHistorialTurnos extends javax.swing.JFrame {
 

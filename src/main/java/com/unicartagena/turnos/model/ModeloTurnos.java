@@ -23,22 +23,6 @@ public class ModeloTurnos {
         return listaTurnos;
     }
 
-    // Cambiar estado de un turno
-    /**
-     *
-     * @param numeroTurno
-     * @param nuevoEstado
-     */
-    public static void cambiarEstadoTurno(int numeroTurno, String nuevoEstado) {
-        for (Turno turno : listaTurnos) {
-            if (turno.getNumeroTurno() == numeroTurno) {
-                turno.setEstado(nuevoEstado);
-                notificarObservadores();
-                break;
-            }
-        }
-    }
-
     // Llamar al siguiente turno (marcar el primero en espera como "en atención")
     public static void llamarSiguienteTurno() {
         for (Turno turno : listaTurnos) {
@@ -75,11 +59,10 @@ public class ModeloTurnos {
             }
         }
 
-        // El último elemento del array ahora tiene el mayor número de turno
+        // El último elemento del array ahora tiene el mayor numero de turno
         return turnosArray[turnosArray.length - 1].getNumeroTurno();
     }
 
-// En ModeloTurnos
     public static void cambiarEstadoTurno(Integer numeroTurno, String nuevoEstado) {
         for (Turno turno : listaTurnos) {
             if (turno.getNumeroTurno() == numeroTurno) {
@@ -87,8 +70,11 @@ public class ModeloTurnos {
                 if ("Atendido".equals(nuevoEstado)) {
                     String fechaCierre = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                     turno.setFechaCierre(fechaCierre);
+
+                    // Restablecer el tiempo transcurrido a 0
+                    turno.setTiempoTranscurrido("0h 0m");
                 }
-                notificarObservadores(); // Actualiza todas las vistas observadoras
+                notificarObservadores();
                 break;
             }
         }

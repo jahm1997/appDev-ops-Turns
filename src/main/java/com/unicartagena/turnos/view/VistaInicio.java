@@ -8,7 +8,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @Dev-Ops
+ * @author Dev-Ops
  */
 public class VistaInicio extends javax.swing.JFrame {
     
@@ -18,7 +18,6 @@ public class VistaInicio extends javax.swing.JFrame {
     public VistaInicio() {
         initComponents();
         personalizarComponentes();
-        
     }
 
     /**
@@ -41,10 +40,9 @@ public class VistaInicio extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        IniciarPrograma.setBackground(new java.awt.Color(255, 255, 255));
         IniciarPrograma.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        IniciarPrograma.setForeground(new java.awt.Color(0, 0, 0));
         IniciarPrograma.setText("Iniciar Programa");
         IniciarPrograma.setAlignmentX(0.5F);
         IniciarPrograma.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -63,7 +61,6 @@ public class VistaInicio extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Bienvenido al sistema de turnos");
 
