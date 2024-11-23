@@ -127,12 +127,14 @@ public final class VistaListaTurnos extends javax.swing.JFrame {
      */
     public void actualizarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tablaTurnos.getModel();
-        modelo.setRowCount(0); // Limpiar la tabla antes de actualizar
+        modelo.setRowCount(0);
 
         for (Turno turno : ModeloTurnos.obtenerTurnos()) {
             String tiempoTranscurrido;
             if (turno.getFechaCierre() == null) {
                 // Calcular tiempo transcurrido solo si el ticket no está cerrado
+                tiempoTranscurrido = calcularTiempoTranscurrido(turno.getDiaIngreso());
+            } else if ("Sin Cerrar".equals(turno.getFechaCierre())) {
                 tiempoTranscurrido = calcularTiempoTranscurrido(turno.getDiaIngreso());
             } else {
                 // Si el ticket está cerrado, mostrar tiempo transcurrido fijo
